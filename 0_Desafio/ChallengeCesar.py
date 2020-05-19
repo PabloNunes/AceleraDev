@@ -4,7 +4,7 @@ import requests
 
 ## HTTP Get JSON
 def get_json():
-    req = requests.get("https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=34fb67c558cc5cfc80a2709ad6f2c1219448721c")
+    req = requests.get("https://api.codenation.dev/v1/challenge/dev-ps/generate-data?token=tokenaqui")
     json_dict = req.json()
     return (json_dict)
 
@@ -63,6 +63,6 @@ if __name__ == "__main__":
 
     save_json(new_json, "answer.json")
     submit_post(
-        "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=34fb67c558cc5cfc80a2709ad6f2c1219448721c",
+        "https://api.codenation.dev/v1/challenge/dev-ps/submit-solution?token=tokenaqui",
         "answer.json")
 
