@@ -145,3 +145,66 @@ class Gato(Mamifero):  # Estendendo Mamifero
     def emitir_som(self):
         print("Miau Miau")
 ```
+
+## Método de Classe
+
+- Resumo: Permite você utilizar um método de uma classe, sem precisar fazer uma instância. Pois os metodos são ligados a classe!
+- Ela pode ser chamada também do Objeto!
+- Lembrando, que se tiver estiver no escopo da instância ```self```, ele não vai poder ser chamado no método, pois está acessível para a classe, que usa ```cls```.
+- Em Python:
+
+```python
+class Impressora:
+
+    def __init__(self):
+        self.a = 10
+
+    @classmethod
+    def imprimir_folha(cls):  # Deve funcionar
+        print("folha impressa")
+
+    @classmethod
+    def imprimir_a(cls):  # Deve dar erro
+        print(cls.a)
+
+
+Impressora.imprimir_folha()  # Mostra na tela o print
+
+impressora = Impressora()  # Fazendo uma instancia
+
+# Os dois comandos devem dar erro
+# Impressora.imprimir_a()
+# impressora.imprimir_a()
+
+# Eles dão erro pois não tem acesso a instância da variável.
+```
+
+## Método de Instância
+
+- Resumo: Nos métodos de instância, eles podem acessar váriaveis em instância da classe e herdam as propriedades dos métodos de classe.
+- Assim, eles usam o ```self``` para acessar as variáveis de instância.
+- Em python:
+
+```python
+class Impressora:
+
+    def __init__(self, numero_folhas):  # Usando o self para construir a função
+        self.numero_folhas = numero_folhas
+
+    def imprimir_folha(self):
+        print("folha impressa")
+
+    def imprimir_livro(self, paginas):  # Chamando os metodos e variáveis internas
+        if paginas <= self.numero_folhas:
+            for i in range(paginas):
+                self.imprimir_folha()
+                self.numero_folhas -= 1
+
+    @classmethod  # Exemplo de método de classe
+    def print_modelo(cls):
+        print(cls.modelo)
+
+
+    def print_modelo_instancia(self):
+        print(self.modelo)
+```
