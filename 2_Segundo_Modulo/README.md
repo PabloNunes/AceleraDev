@@ -14,6 +14,11 @@
 - Método de Instância
 - Método Estático
 
+**Extras**:
+
+- Encapsulamento
+- Classes abstratas
+
 ## Herança
 
 - **Resumo**: De classes genéricas podemos herdar características para fazer classes mais robustas e especialistas.
@@ -208,3 +213,104 @@ class Impressora:
     def print_modelo_instancia(self):
         print(self.modelo)
 ```
+
+## Método Estático
+
+- Resumo: Ele não usa o escopo da classe, somente o próprio escopo. Ele normalmente é fixo.
+- Consigo invocar esse tipo de método em class methods e instâncias.
+- Normalmente, usados para tipos de classe factory.
+  
+````python
+class Impressora:
+    @staticmethod
+    def ligar_para_suporte():
+        print("Liguei para o suporte")
+
+    @classmethod
+    def deu_problema_na_impressora(cls):
+        print("analisando problema")
+        cls.ligar_para_suporte()
+
+    def imprimir(self):
+        print("imprimindo pagina 1")
+        self.ligar_para_suporte()
+````
+
+----
+
+## **Extras**
+
+## Encapsulamento
+
+- Resumo: Podemos restringir acesso a métodos e variáveis utilizando ```_``` ou ```__```
+- Nesse caso, só poderemos mudar as variáveis usando um setter
+- Em Python:
+  
+````python
+class Computer:
+
+    def __init__(self):
+        self.__maxprice = 900
+
+    def sell(self):
+        print(f"Selling Price: {self.__maxprice}")
+
+    def setMaxPrice(self, price):
+        self.__maxprice = price
+
+c = Computer()
+c.sell()
+
+# using setter function
+c.setMaxPrice(1000)
+c.sell()
+````
+
+- Ele muda o preço máximo e imprime isso na tela
+
+### [Fonte](https://www.programiz.com/python-programming/object-oriented-programming)
+
+## Classes abstratas
+
+- Resumo: Classes abstratas são classes nas quais não podem ser instanciadas diretamente, além de suas derivadas não poderem usar seus métodos, sendo forçada a implementação de seus métodos.
+- Python não vem com as classes abstratas, mas podemos usar uma biblioteca chamada ABC.
+- Um método abstrato pode sim ter uma implementação, mas ainda sim precisará de uma sobrecarga.
+- Em Python:
+
+````python
+from abc import ABC, abstractmethod
+
+class AbsClassExemplo(ABC):  # Herdando da classe ABC, para criar uma classe abstrata
+
+    def __init__(self, value):
+        self.value = value
+
+    @abstractmethod  # Força a implementação desse método em classes que a herdam
+    def faca_algo(self):
+        pass
+
+    @abstractmethod  # Mesmo tendo implementação, ele força colocar algo
+    def tem_algo(self):
+        print("Há algo aqui?")
+
+
+class Adiciona1(AbsClassExemplo):  # Fazendo uma classe para dar um Override
+
+    def faca_algo(self):
+        return self.value + 1
+
+    def tem_algo(self):
+        pass
+
+
+class TemMais(AbsClassExemplo):
+
+    def faca_algo(self):
+        pass
+
+    def tem_algo(self):
+        super().tem_algo()
+        print("Realmente, tem algo")
+````
+
+### [Fonte](https://www.python-course.eu/python3_abstract_classes.php)
